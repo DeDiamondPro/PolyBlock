@@ -231,8 +231,6 @@ object RenderUtils {
 
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST)
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST)
-
-        UGraphics.disableBlend()
     }
 
     fun drawRect(x: Number, y: Number, width: Number, height: Number, color: Int) {
@@ -457,7 +455,6 @@ object RenderUtils {
             .color(endRed, endGreen, endBlue, endAlpha).endVertex()
         tessellator.draw()
         GlStateManager.shadeModel(7424)
-        GlStateManager.disableBlend()
         GlStateManager.enableAlpha()
         GlStateManager.enableTexture2D()
     }
