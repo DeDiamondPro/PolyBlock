@@ -3,14 +3,13 @@ import gg.essential.gradle.util.noServerRunConfigs
 
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "1.4.21"
+    kotlin("plugin.serialization") version "1.6.0"
     id("gg.essential.multi-version")
     id("gg.essential.defaults.repo")
     id("gg.essential.defaults.java")
     id("gg.essential.defaults.loom")
     id("com.github.johnrengelman.shadow")
-    id("net.kyori.blossom") version "1.3.0"
-    id("io.github.juuxel.loom-quiltflower-mini")
+    id("net.kyori.blossom") version "1.3.2"
     id("signing")
     java
 }
@@ -62,8 +61,8 @@ repositories {
 }
 
 dependencies {
-    modRuntimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.1.0")
     //modRuntimeOnly("com.github.romangraef:notenoughupdates:30f7cf9e:all")
+    modRuntimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.1.2")
 
     // Basic OneConfig dependencies for legacy versions. See OneConfig example mod for more info
     compileOnly("cc.polyfrost:oneconfig-1.8.9-forge:0.2.0-alpha179") // Should not be included in jar
@@ -80,11 +79,11 @@ dependencies {
 loom {
     noServerRunConfigs()
     if (project.platform.isForge) {
-        launchConfigs.named("client") {
-            arg("--tweakClass", "cc.polyfrost.oneconfigwrapper.OneConfigWrapper")
+        runConfigs.named("client") {
+            programArgs("--tweakClass", "cc.polyfrost.oneconfigwrapper.OneConfigWrapper")
             property("mixin.debug.export", "true")
             val modFiles = runtimeMod.files
-            arg("--mods", modFiles.joinToString(",") { it.relativeTo(file("run")).path })
+            programArgs("--mods", modFiles.joinToString(",") { it.relativeTo(file("run")).path })
         }
         forge {
             mixinConfig("mixins.${mod_id}.json")
@@ -152,7 +151,7 @@ tasks {
         relocate("me.xdrop", "dev.dediamondpro.skyguide.libs")
     }
     remapJar {
-        input.set(shadowJar.get().archiveFile)
+        inputFile.set(shadowJar.get().archiveFile)
         archiveClassifier.set("")
     }
     jar {

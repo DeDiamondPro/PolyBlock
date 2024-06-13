@@ -6,15 +6,8 @@ pluginManagement {
         maven("https://maven.architectury.dev/")
     }
     plugins {
-        val egtVersion = "0.1.11"
+        val egtVersion = "0.6.0"
         id("gg.essential.multi-version.root") version egtVersion
-    }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id == "io.github.juuxel.loom-quiltflower-mini") {
-                useModule("com.github.wyvest:loom-quiltflower-mini:${requested.version}")
-            }
-        }
     }
 }
 
